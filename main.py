@@ -198,8 +198,10 @@ def main(running_file):
         if checkpoint is not None:
             args.start_epoch = checkpoint['epoch'] + 1
             if args.evaluate_converted:
+                model = torch.nn.DataParallel(model).cuda()        
                 model.load_state_dict(convert_pidinet(checkpoint['state_dict'], args.config))
             else:
+                model = torch.nn.DataParallel(model).cuda()
                 model.load_state_dict(checkpoint['state_dict'])
         else:
             raise ValueError('no checkpoint loaded')
