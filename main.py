@@ -26,6 +26,9 @@ import torchvision
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
+import tensorflow as tf
+import onnx
+from onnx_tf.backend import prepare
 
 parser = argparse.ArgumentParser(description='PyTorch Pixel Difference Convolutional Networks')
 
@@ -156,7 +159,7 @@ def main(running_file):
 
     ### Transfer to cuda devices
     if args.use_cuda:
-        model = torch.nn.DataParallel(model).cuda()
+        #model = torch.nn.DataParallel(model).cuda()
         print('cuda is used, with %d gpu devices' % torch.cuda.device_count())
     else:
         print('cuda is not used, the running might be slow')
